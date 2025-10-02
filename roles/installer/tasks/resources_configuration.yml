@@ -224,7 +224,7 @@
     _custom_image: "{{ image }}:{{ image_version }}"
   when:
     - image | default([]) | length
-    - image_version is defined or image_version != ''
+    - image_version is defined and image_version != ''
 
 - name: Set AWX app image URL
   set_fact:

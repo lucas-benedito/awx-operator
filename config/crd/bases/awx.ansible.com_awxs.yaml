@@ -36,6 +36,9 @@ spec:
           metadata:
             type: object
           spec:
+            x-kubernetes-validations:
+            - rule: "has(self.image) && has(self.image_version) || !has(self.image) && !has(self.image_version)"
+              message: "Both image and image_version must be set when required"
             properties:
               deployment_type:
                 description: Name of the deployment type
@@ -1335,10 +1338,10 @@ spec:
                     type: object
                 type: object
               image:
-                description: Registry path to the application container to use
+                description: Registry path to the application container to use (for Development or hotfixes purposes)
                 type: string
               image_version:
-                description: Application container image version to use
+                description: Application container image version to use (for Development or hotfixes purposes)
                 type: string
               ee_images:
                 description: Registry path to the Execution Environment container to use
