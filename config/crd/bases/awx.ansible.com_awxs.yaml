@@ -36,6 +36,9 @@ spec:
           metadata:
             type: object
           spec:
+            x-kubernetes-validations:
+            - rule: "has(self.image) && has(self.image_version) || !has(self.image) && !has(self.image_version)"
+              message: "Both image and image_version must be set when required"
             properties:
               deployment_type:
                 description: Name of the deployment type
