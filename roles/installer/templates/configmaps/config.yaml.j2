@@ -185,9 +185,12 @@ data:
             server_name _;
             keepalive_timeout 65;
 
+            # Security headers - IMPORTANT: nginx drops ALL server-level add_header
+            # directives from any location block that defines its own add_header.
+            # If you add add_header to a location block, you must duplicate these
+            # headers there as well.
             # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
             add_header Strict-Transport-Security max-age=15768000;
-
             # Protect against click-jacking https://www.owasp.org/index.php/Testing_for_Clickjacking_(OTG-CLIENT-009)
             add_header X-Frame-Options "DENY";
             # Protect against MIME content sniffing https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
